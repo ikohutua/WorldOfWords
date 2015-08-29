@@ -19,8 +19,8 @@
     this.cantHandleRequest = 'Sorry, we can\'t handle your request :(';
     this.somethingWrong = 'Something went wrong...';
     this.StudentRole = 'Student';
-    this.failureMessage = 'Success!';
-    this.tryAgainMessage = 'You may now login.';
+    this.failureMessage = 'Failure...';
+    this.tryAgainMessage = 'Try again later.';
     this.TeacherRole = 'Teacher';
     this.AdminRole = 'Admin';
     this.small = 'sm';

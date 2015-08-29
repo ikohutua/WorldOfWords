@@ -37,22 +37,12 @@ namespace WorldofWords.Controllers
             if (!_service.Exists(newUser))
             {
                 _service.Add(newUser);
-                Guid randomPart = Guid.NewGuid();
-                var tokenToHash = randomPart.ToString() + newUser.Id.ToString();
-                _tokenModel.EmailConfirmationToken = _token.GetHashSha256(tokenToHash);
 
-                var code = _tokenModel.EmailConfirmationToken;
+                var code = GenerateEmailConfirmationToken(newUser.Id.ToString(), true);
                 newUser.Token = code;
                 _service.AddToken(newUser);
 
-                var callbackUrl = new Uri("http://worldofwordssoftserve.apphb.com/Index");
-
-                await (_emailService).SendAsync(new IdentityMessage
-                {
-                    Body = String.Format(MessagesContainer.ConfiramtionMessage + callbackUrl + "#/EmailConfirmed?id={0}&code={1}", newUser.Id, code),
-                    Destination = newUser.Email,
-                    Subject = "Registration confirmation at WoW"
-                });
+                await SendEmailConfirmationAsync(code, newUser.Email, "Registration confirmation at WoW", newUser.Id);
 
                 return Ok(_tokenModel);
             }
@@ -84,19 +74,9 @@ namespace WorldofWords.Controllers
         {
             if (_service.CheckUserEmail(model))
             {
-                var tokenToHash = model.Id.ToString();
-                _tokenModel.ForgotPasswordToken = _token.GetHashSha256(tokenToHash);
+                var code = GenerateEmailConfirmationToken(model.Id.ToString(), false);
 
-                var code = _tokenModel.ForgotPasswordToken;
-
-                var callbackUrl = new Uri(Url.Link("AngularRoute", new { }));
-
-                await (_emailService).SendAsync(new IdentityMessage
-                {
-                    Body = String.Format(MessagesContainer.ForgotPasswordMessage + callbackUrl + "#/ChangePassword?id={0}", code),
-                    Destination = model.Email,
-                    Subject = "Reset password at at WoW"
-                });
+                await SendEmailConfirmationAsync(code, model.Email, "Password reset at WoW");
 
                 return Ok(_tokenModel);
             }
@@ -115,6 +95,40 @@ namespace WorldofWords.Controllers
                 return Ok(_tokenModel);
             }
             return BadRequest();
+        }
+
+        private string GenerateEmailConfirmationToken(string id, bool emailConfirm)
+        {
+            string result = "";
+            if (emailConfirm)
+            {
+                Guid randomPart = Guid.NewGuid();
+                var tokenToHash = randomPart.ToString() + id;
+                _tokenModel.EmailConfirmationToken = _token.GetHashSha256(tokenToHash);
+                result = _tokenModel.EmailConfirmationToken;
+            }
+            else
+            {
+                _tokenModel.ForgotPasswordToken = _token.GetHashSha256(id);
+                result = _tokenModel.ForgotPasswordToken;
+            }
+
+            return result;
+        }
+
+        private async Task SendEmailConfirmationAsync(string code, string email, string subject, int id = 0)
+        {
+            var callbackUrl = new Uri(Url.Link("AngularRoute", new { }));
+
+            string mainPart = id != 0 ? MessagesContainer.ConfiramtionMessage : MessagesContainer.ForgotPasswordMessage;
+            string redirectPart = id != 0 ? String.Format("#/EmailConfirmed?id={0}&code={1}", id, code) : String.Format("#/ChangePassword?id={0}", code);
+
+            await (_emailService).SendAsync(new IdentityMessage
+            {
+                Body = String.Format(mainPart + callbackUrl + redirectPart),
+                Destination = email,
+                Subject = subject
+            });
         }
     }
 }
