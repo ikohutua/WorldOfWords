@@ -147,7 +147,7 @@ namespace WorldOfWords.Domain.Services
             using (var uow = _unitOfWorkFactory.GetUnitOfWork())
             {
                 uow.CourseRepository.Add(course);
-               // uow.Save();
+                uow.Save();
                 AddWordSuitesToCourse(course.Id, wordSuitesId);
                 uow.Save();
                 return course.Id;
