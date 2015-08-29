@@ -438,11 +438,13 @@
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\Controllers\CreateWordTranslationController.js" />
+    <Content Include="Scripts\app\Controllers\GroupDetailsController.js" />
     <Content Include="Scripts\app\Controllers\MyPageController.js" />
     <Content Include="Scripts\app\Controllers\StudentProgressChartController.js" />
     <Content Include="Scripts\app\Controllers\GlobalDictionaryController.js" />
     <Content Include="Scripts\app\Controllers\AddWordTranslationsModalController.js" />
     <Content Include="Scripts\app\Controllers\MessageWithActionModalController.js" />
+    <Content Include="Scripts\app\Controllers\StudentProgressController.js" />
     <Content Include="Scripts\app\Controllers\TeacherManagerController.js" />
     <Content Include="Scripts\app\Controllers\ChangePasswordController.js" />
     <Content Include="Scripts\app\Controllers\ConfirmModalController.js" />
@@ -503,6 +505,7 @@
     <Content Include="Scripts\app\Services\WordTranslationService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\libs\canvasjs.min.js" />
     <Content Include="Scripts\libs\keyboard.css" />
     <Content Include="Scripts\libs\keyboard.js" />
     <Content Include="Scripts\libs\sha512.js" />
