@@ -28,7 +28,7 @@
 
         modalInstance.result.then(function (success) {
             if (success) {
-                init();
+                initialize();
             }
         });
     }
@@ -66,7 +66,7 @@
                     WordTranslationId: $scope.wordSuite.WordTranslations[index].Id
                 })
                 .then(function (ok) {
-                    init();
+                    initialize();
                 },
                 function (badRequest) {
                     console.log('fail');

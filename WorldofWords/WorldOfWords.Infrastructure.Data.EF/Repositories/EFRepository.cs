@@ -82,7 +82,7 @@ namespace WorldOfWords.Infrastructure.Data.EF.Repositories
 
         public void Delete(IEnumerable<T> entities)
         {
-            foreach(var entity in entities)
+            foreach(var entity in entities.ToList())
             {
                 Delete(entity);
             }
