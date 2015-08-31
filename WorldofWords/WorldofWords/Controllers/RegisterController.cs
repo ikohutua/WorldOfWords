@@ -118,7 +118,7 @@ namespace WorldofWords.Controllers
 
         private async Task SendEmailConfirmationAsync(string code, string email, string subject, int id = 0)
         {
-            var callbackUrl = new Uri(Url.Link("AngularRoute", new { }));
+            var callbackUrl = new Uri("http://wordofwords.apphb.com/Index");
 
             string mainPart = id != 0 ? MessagesContainer.ConfiramtionMessage : MessagesContainer.ForgotPasswordMessage;
             string redirectPart = id != 0 ? String.Format("#/EmailConfirmed?id={0}&code={1}", id, code) : String.Format("#/ChangePassword?id={0}", code);
