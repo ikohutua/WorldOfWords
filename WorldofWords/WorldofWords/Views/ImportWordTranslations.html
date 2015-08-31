@@ -23,18 +23,18 @@
                 </div>
                 <div class="well" ng-show="showTemplate">
                     <h4>
+                        <em>Structure:</em> <br><br>
                         <strong>word = translation</strong> <br>
-                        <strong>word = translation</strong> [transcription] <br>
-                        <strong>word = translation</strong> {description} <br>
-                        <strong>word = translation</strong> [transcription] {description} <br>
-                        <strong>word = translation</strong> {description} [transcription] <br><br>
+                        [transcription] <br>
+                        {description} <br>
+                        #tag<br><br>
                         <em>Example:</em> <br><br>
                         ability	=	уміння <br>
                         ability	=	спроможність [əˈbɪləti] <br>
-                        ability	=	здібність {talent, skill to do smth} [əˈbɪləti] <br><br>
-                        <strong>word = translation</strong> is required, 
-                        transcription and description may be missed and stay in different order.<br><br>
-                        All units may be non-separated or be separated by spaces or tabulations.
+                        ability	=	здібність {talent, skill to do smth} [əˈbɪləti] #noun #skills<br><br>
+                        Only <strong>word = translation</strong> is required, other parts may be missed and stay in different order.<br>
+                        Word Translation can have more than one tag, all tags must be separated by spaces.
+                        The other parts may be non-separated or be separated by spaces or tabulations.
                     </h4>
                 </div>
             </div>
